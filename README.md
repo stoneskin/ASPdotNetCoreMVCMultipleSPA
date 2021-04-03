@@ -67,7 +67,72 @@ The js will be include in the view like below:
 
 ```
 
+### 2.3 Move Ts.Config to each page JS folder
 
+Since we will build each page as a single page application. they need it's own config.
+
+![ts.config](TSConfigForEachPageJSFolder.png)
+
+```json
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "noEmitOnError": true,
+    "removeComments": false,
+    "sourceMap": true,
+    "target": "es5",
+    "outDir": "../../../wwwroot/js"
+
+  },
+  "include": [
+    "**/*",
+    "../shared/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
+```
+
+Also the code need import the module in shared folder
+
+The page.ts in shared folder:
+
+```js
+export interface Page {
+    Name: string;
+    Title: string;
+    Desc: string;
+    PageId: number;
+}
+```
+
+The tsconfig.json in Page folder
+
+```json
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "noEmitOnError": true,
+    "removeComments": false,
+    "sourceMap": true,
+    "target": "es5",
+    "outDir": "../../../wwwroot/js"
+
+  },
+  "include": [
+    "**/*",
+    "../shared/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
+```
+
+Pay attention on the *include* and *exclude* section. also the *outDir* need update to the correct relation path.
 
 
 
