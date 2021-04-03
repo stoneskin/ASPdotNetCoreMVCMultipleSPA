@@ -1,4 +1,5 @@
-﻿export default class Page1 {
+﻿import { Page}  from "../shared/Page"
+export default class Page1 {
 
     page1: Page = {
         Name: "Page1",

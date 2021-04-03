@@ -1,4 +1,5 @@
-﻿namespace Page2 {
+﻿import { Page } from "../shared/Page"
+namespace Page2 {
 
     const page: Page = {
         Name: "Page2",
