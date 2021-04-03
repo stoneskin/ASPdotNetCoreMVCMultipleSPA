@@ -134,10 +134,38 @@ The tsconfig.json in Page folder
 
 Pay attention on the *include* and *exclude* section. also the *outDir* need update to the correct relation path.
 
-### 2.4 Re structure the folder of for the page scripts
+### 2.4 Re-structure the folder of for the page scripts
 
 Move the Src folder inside the page folder, so we could add config and module files outside the src folder for each pages folder.
 ![update files structure](TSConfigForEachPageJSFolder2.png)
+
+### 2.5 Update the ts.config to make one page only use single bundle js file
+
+Example of `tsConfig.json` file  in the Page1 folder.
+Add module with 'ADM'
+and special the name in the outFile.
+
+```json
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "noEmitOnError": true,
+    "removeComments": false,
+    "sourceMap": true,
+    "target": "es5",
+    "outDir": "/../../wwwroot/js",
+    "module": "AMD",
+    "outFile": "../../wwwroot/js/Page1.js"
+
+  },
+  "include": [
+    "src/**/*",
+    "../shared/src/**/*"  ]
+  
+}
+```
+
 
 ## 3 Add NPM packages
 
@@ -154,4 +182,7 @@ Right-click the project in Solution Explorer and choose Add > New Item. Choose t
 - AspNet with TypeScript: <https://docs.microsoft.com/en-us/visualstudio/javascript/tutorial-aspnet-with-typescript?view=vs-2019>
 - NPM Package Manage with AspNet Core: <https://docs.microsoft.com/en-us/visualstudio/javascript/npm-package-management?view=vs-2019#aspnet-core-projects>
 - github ignore:  <https://github.com/github/gitignore/blob/master/VisualStudio.gitignore>
+- tsConfig.json doc:
+  - <https://www.typescriptlang.org/docs/handbook/tsconfig-json.html>
+  - <https://www.typescriptlang.org/tsconfig>
 

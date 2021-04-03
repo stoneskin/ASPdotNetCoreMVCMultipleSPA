@@ -1,15 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var User_1 = require("./Model/User");
+var Page_1 = require("../../shared/src/Page");
 var Page1 = /** @class */ (function () {
     function Page1() {
-        this.page1 = {
-            Name: "Page1",
-            Title: "Test Page1", Desc: "Description ....",
-            PageId: 1
-        };
     }
-    Page1.prototype.getPage1 = function () {
-        return this.page1;
+    Page1.prototype.getPage = function () {
+        return Page_1.DefaultPage;
+    };
+    ;
+    Page1.prototype.getUser = function () {
+        return User_1.testUser;
     };
     return Page1;
 }());

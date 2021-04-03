@@ -1,4 +1,6 @@
-﻿import { Page } from "../../shared/src/Page"
+﻿import  Page  from "../../shared/src/Page"
+import { DefaultPage } from "../../shared/src/Page"
+
 namespace Page2 {
 
     const page: Page = {
@@ -9,5 +11,9 @@ namespace Page2 {
 
     function getPage() {
         return page;
+    }
+
+    function getDefaultPagePage() {
+        return DefaultPage;
     }
 }

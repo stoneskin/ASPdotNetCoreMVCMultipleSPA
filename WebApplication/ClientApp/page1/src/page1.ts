@@ -1,13 +1,15 @@
-﻿import { Page}  from "../../shared/src/Page"
+﻿import { testUser } from "./Model/User";
+import { DefaultPage } from "../../shared/src/Page"
+
 export default class Page1 {
 
-    page1: Page = {
-        Name: "Page1",
-        Title: "Test Page1", Desc: "Description ....",
-        PageId: 1
+
+    getPage() {
+
+        return DefaultPage;
     };
-    getPage1() {
-    return this.page1;
+    getUser() {
+        return testUser;
     }
 
 
