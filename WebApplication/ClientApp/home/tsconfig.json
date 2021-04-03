@@ -12,8 +12,5 @@
   "include": [
     "**/*",
     "../shared/*"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+, "../shared/src/Page.ts"  ]
 }

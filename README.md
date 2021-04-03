@@ -134,6 +134,19 @@ The tsconfig.json in Page folder
 
 Pay attention on the *include* and *exclude* section. also the *outDir* need update to the correct relation path.
 
+### 2.4 Re structure the folder of for the page scripts
+
+Move the Src folder inside the page folder, so we could add config and module files outside the src folder for each pages folder.
+![update files structure](TSConfigForEachPageJSFolder2.png)
+
+## 3 Add NPM packages
+
+### 3.1 Add NPM package files
+
+First is make sure the [Node.Js](https://nodejs.org/en/download/) is installed.
+
+Right-click the project in Solution Explorer and choose Add > New Item. Choose the npm Configuration File, use the default name, and click Add.
+`package.json` file will be added.
 
 
 ### reference

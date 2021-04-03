@@ -1,4 +1,4 @@
-﻿import { Page}  from "../shared/Page"
+﻿import { Page}  from "../../shared/src/Page"
 export default class Page1 {
 
     page1: Page = {
