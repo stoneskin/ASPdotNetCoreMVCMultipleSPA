@@ -141,9 +141,10 @@ Move the Src folder inside the page folder, so we could add config and module fi
 
 ### 2.5 Update the ts.config to make one page only use single bundle js file
 
+Add module with  value 'AMD' and special the name in the outFile.
+Foc doc of tsconfig setting, please check <https://www.typescriptlang.org/tsconfig>
+
 Example of `tsConfig.json` file  in the Page1 folder.
-Add module with 'ADM'
-and special the name in the outFile.
 
 ```json
 {
@@ -166,12 +167,11 @@ and special the name in the outFile.
 }
 ```
 
-
 ## 3 Add NPM packages
 
 ### 3.1 Add NPM package files
 
-First is make sure the [Node.Js](https://nodejs.org/en/download/) is installed.
+NPM is come with the [Node.Js](https://nodejs.org/en/download/). It should already be installed before you working this TypScript project.
 
 Right-click the project in Solution Explorer and choose Add > New Item. Choose the npm Configuration File, use the default name, and click Add.
 `package.json` file will be added.
