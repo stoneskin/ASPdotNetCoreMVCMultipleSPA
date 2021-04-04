@@ -8,7 +8,7 @@
     "target": "es5",
     "outDir": "../../wwwroot/js",
     "module": "AMD",
-    "outFile": "../../../wwwroot/js/site.js"
+    "outFile": "../../wwwroot/js/site.js"
 
   },
   "include": [
