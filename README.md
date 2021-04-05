@@ -14,9 +14,10 @@ The new site with home page will be created.
 
 ### 1.2  Add Typescript follow the steps in below tutorials.
 
-- In the Manage NuGet Packages window, search for Microsoft.TypeScript.MSBuild, and then click Install on the right to install the package.
+- In the **Manage NuGet Packages** window, search for **Microsoft.TypeScript.MSBuild**, and then click Install on the right to install the package.
 
-- My ts.config for building my typescript code  in ClientApp/src folder in to plain js files.
+- Create folders `/ClientApp/` and `/ClientApp/Src/` for your TypeScript code
+- My initial `tsconfig.json` looks like below. It will build my typescript code  in ClientApp/src folder in to plain js files and output to `/wwwroot/js` folder.
 
     ```json
         {
@@ -37,7 +38,59 @@ The new site with home page will be created.
 
 ### 1.2. Add .gitignore for Visual Studio and DotNetCore solution
 
-My [.gitignore file](.gitignore) for Visual Studio project grab from <https://github.com/github/gitignore>
+The ignore configuration file [.gitignore file](.gitignore) for Visual Studio project grab from <https://github.com/github/gitignore>, add to the solution root.
+
+This project using '/wwwroot/js' as JavaScript output folder, so add below to `.getignore` file.
+
+`WebApplication/wwwroot/js`
+
+### 1.3 The  Site home page
+
+Add some typescript code to the ClientApp and included in the default home view come with the project template.
+
+```typescript
+//home.ts
+function TSButton() {
+    let name: string = "Fred";
+    document.getElementById("ts-example").innerHTML = greeter(user);
+}
+
+class Student implements Person {
+    fullName: string;
+    constructor(public firstName: string, public middleInitial: string, public lastName: string) {
+        this.fullName = firstName + " " + middleInitial + " " + lastName;
+    }
+}
+
+interface Person {
+    firstName: string;
+    lastName: string;
+}
+
+function greeter(person: Person) {
+    return "Hello, " + person.firstName + " " + person.firstName;
+}
+
+let user = new Student("Fred", "M.", "Smith");
+
+```
+
+```csharp
+// /Views/home/index.cshtml
+<div id="ts-example">
+    <br />
+    <button type="button" class="btn btn-primary btn-md" onclick="TSButton()">
+        Click Me
+    </button>
+
+</div>
+
+@section Scripts {
+    <script src="~/js/home.js" asp-append-version="true"></script>
+}
+```
+
+In VS2019, run the application in IIS Express, the new web site with TypeScript will working.
 
 ## 2 Add Multiple Page and add ts for each page
 
