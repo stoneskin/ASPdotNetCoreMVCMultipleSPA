@@ -4,10 +4,11 @@
   "description": "demo to build a html javascript page with typescript, reactjs, use webpack to build project",
   "author": "wsun",
   "dependencies": {
-    "@types/react": "17.0.2",
-    "@types/react-dom": "17.0.2",
     "react": "17.0.2",
     "react-dom": "17.0.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@types/react": "17.0.2",
+    "@types/react-dom": "17.0.2"
+  }
 }

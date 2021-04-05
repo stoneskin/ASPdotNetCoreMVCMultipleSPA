@@ -2,7 +2,7 @@
   "compilerOptions": {
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
-    "module": "commonjs",
+    "module": "AMD",
     "moduleResolution": "Node",
     "sourceMap": true,
     "noImplicitReturns": true,
@@ -12,14 +12,14 @@
     "target": "ES5",
     "jsx": "react",
     "outDir": "../../wwwroot/js/reactDemo",
-
+    "outFile": "../../wwwroot/js/reactDemo/index.js",
     "lib": [
       "dom",
       "es2015"
     ]
 
   },
-    "include": [
-        "src/**/*"
-    ]
+  "include": [
+    "**/*"
+  ]
 }

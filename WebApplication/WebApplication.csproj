@@ -17,4 +17,8 @@
     <Folder Include="wwwroot\js\" />
   </ItemGroup>
 
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="cd ./ClientApp/reactDemo/&#xD;&#xA;npm i" />
+  </Target>
+
 </Project>
