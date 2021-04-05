@@ -170,7 +170,7 @@ In each pages, the js will be include in the view like below:
 
 *Note: the `page1.js` is exported as module name `page1/src/page1` since it use module in `shared/src/page`. the Script `require(["page1/src/page1"])` will load the javascript code and run it*
 
-## 3 Add a new page ReactDemo to Demo how to include Js 
+## 3 Add a new page ReactDemo to Demo how to integrate ReactJs with TypeScript
 
 ### 3.1 Add NPM package
 
@@ -181,9 +181,8 @@ Right-click the project in Solution Explorer and choose Add > New Item. Choose t
 
 ### 3.2 Add ReactJs
 
-todo.. 
-
-
+please check the source code
+todo..
 
 ### reference
 
