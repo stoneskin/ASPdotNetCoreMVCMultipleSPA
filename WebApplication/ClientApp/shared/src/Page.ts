@@ -11,4 +11,4 @@ const DefaultPage: Page = {
         PageId: 0
 };
 
-export { DefaultPage}
+export { DefaultPage, Page}

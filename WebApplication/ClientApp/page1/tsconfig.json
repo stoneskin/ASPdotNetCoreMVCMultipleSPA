@@ -9,7 +9,6 @@
     "outDir": "/../../wwwroot/js",
     "module": "AMD",
     "outFile": "../../wwwroot/js/Page1.js"
-
   },
   "include": [
     "src/**/*",

@@ -1,16 +1,7 @@
-﻿import { testUser } from "./Model/User";
-import { DefaultPage } from "../../shared/src/Page"
-
-export default class Page1 {
+﻿import { Page1,testUser } from "./Model/index";
 
 
-    getPage() {
+const page1: Page1 = new Page1(1, "page1", "page1 title", "test page 1", testUser);
 
-        return DefaultPage;
-    };
-    getUser() {
-        return testUser;
-    }
-
-
-}
+     
+alert("page1:" +page1.Name+ " user :" + page1.getUser());
