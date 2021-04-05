@@ -44,7 +44,7 @@ This project using '/wwwroot/js' as JavaScript output folder, so add below to `.
 
 `WebApplication/wwwroot/js`
 
-### 1.3 The  Site home page
+### 1.3 Add TyScript code to the Site home page
 
 Add some typescript code to the ClientApp and included in the default home view come with the project template.
 
@@ -92,6 +92,8 @@ let user = new Student("Fred", "M.", "Smith");
 
 In VS2019, run the application in IIS Express, the new web site with TypeScript will working.
 
+Please see more details on the [reference tutorial](https://docs.microsoft.com/en-us/visualstudio/javascript/tutorial-aspnet-with-typescript?view=vs-2019)
+
 ## 2 Add Multiple Page and add ts for each page
 
 ### 2.1 Add multiple controllers and views and add some ts files
@@ -133,7 +135,8 @@ Example of `tyConfig.json` for `/page1/`:
 }
 ```
 
-Pay attention on the *include* and *exclude* section. also the *outDir* need update to the correct relation path.
+Pay attention on the *include* and *exclude* section. also the *outFile* need update to the correct relation path.
+`outFile` will build all ts files in the folder into one js file, and only works with module `AMD` and `System`
 
 For documentation of tsconfig setting, please check <https://www.typescriptlang.org/tsconfig>
 
