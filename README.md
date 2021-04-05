@@ -14,9 +14,10 @@ The new site with home page will be created.
 
 ### 1.2  Add Typescript follow the steps in below tutorials.
 
-- In the Manage NuGet Packages window, search for Microsoft.TypeScript.MSBuild, and then click Install on the right to install the package.
+- In the **Manage NuGet Packages** window, search for **Microsoft.TypeScript.MSBuild**, and then click Install on the right to install the package.
 
-- My ts.config for building my typescript code  in ClientApp/src folder in to plain js files.
+- Create folders `/ClientApp/` and `/ClientApp/Src/` for your TypeScript code
+- My initial `tsconfig.json` looks like below. It will build my typescript code  in ClientApp/src folder in to plain js files and output to `/wwwroot/js` folder.
 
     ```json
         {
@@ -37,7 +38,59 @@ The new site with home page will be created.
 
 ### 1.2. Add .gitignore for Visual Studio and DotNetCore solution
 
-My [.gitignore file](.gitignore) for Visual Studio project grab from <https://github.com/github/gitignore>
+The ignore configuration file [.gitignore file](.gitignore) for Visual Studio project grab from <https://github.com/github/gitignore>, add to the solution root.
+
+This project using '/wwwroot/js' as JavaScript output folder, so add below to `.getignore` file.
+
+`WebApplication/wwwroot/js`
+
+### 1.3 The  Site home page
+
+Add some typescript code to the ClientApp and included in the default home view come with the project template.
+
+```typescript
+//home.ts
+function TSButton() {
+    let name: string = "Fred";
+    document.getElementById("ts-example").innerHTML = greeter(user);
+}
+
+class Student implements Person {
+    fullName: string;
+    constructor(public firstName: string, public middleInitial: string, public lastName: string) {
+        this.fullName = firstName + " " + middleInitial + " " + lastName;
+    }
+}
+
+interface Person {
+    firstName: string;
+    lastName: string;
+}
+
+function greeter(person: Person) {
+    return "Hello, " + person.firstName + " " + person.firstName;
+}
+
+let user = new Student("Fred", "M.", "Smith");
+
+```
+
+```csharp
+// /Views/home/index.cshtml
+<div id="ts-example">
+    <br />
+    <button type="button" class="btn btn-primary btn-md" onclick="TSButton()">
+        Click Me
+    </button>
+
+</div>
+
+@section Scripts {
+    <script src="~/js/home.js" asp-append-version="true"></script>
+}
+```
+
+In VS2019, run the application in IIS Express, the new web site with TypeScript will working.
 
 ## 2 Add Multiple Page and add ts for each page
 
@@ -45,106 +98,20 @@ My [.gitignore file](.gitignore) for Visual Studio project grab from <https://gi
 
 - Add some controllers and views.
 - In the ClientApp, create folder for each pages. Add some Typescript files there.
+- The final project solution explorer view will looks like below
     ![solution structure](SolutionStructure_1.png)
 
-### 2.2 Connect the View and Javascript files in View
 
-The  code site.ts will used for all site, it need in `Shared/_layout.cshtml` files.
-In each pages, they will have their own javascript files.
+### 2.2 TsConfig.json for multiple pages with shared modules
 
-The js will be include in the view like below:
+The there is shared folder, we have `site.ts` will used by multiple page, and we want build the single js page for each page.
 
-```html
-@{
-    ViewData["Title"] = "page1";
-}
+In the project we use javascript module type [AMD](https://en.wikipedia.org/wiki/Asynchronous_module_definition).
+and it need use [requireJs](https://requirejs.org/).
 
-<h1>page1</h1>
+download the [required.js](https://requirejs.org/docs/download.html) and put in the `\wwwroot\lib\` folder.
 
-@section Scripts {
-    <script src="~/js/page1/page1.js" asp-append-version="true"></script>
-}
-
-```
-
-### 2.3 Move Ts.Config to each page JS folder
-
-Since we will build each page as a single page application. they need it's own config.
-
-![ts.config](TSConfigForEachPageJSFolder.png)
-
-```json
-{
-  "compileOnSave": true,
-  "compilerOptions": {
-    "noImplicitAny": false,
-    "noEmitOnError": true,
-    "removeComments": false,
-    "sourceMap": true,
-    "target": "es5",
-    "outDir": "../../../wwwroot/js"
-
-  },
-  "include": [
-    "**/*",
-    "../shared/*"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
-}
-```
-
-Also the code need import the module in shared folder
-
-The page.ts in shared folder:
-
-```js
-export interface Page {
-    Name: string;
-    Title: string;
-    Desc: string;
-    PageId: number;
-}
-```
-
-The tsconfig.json in Page folder
-
-```json
-{
-  "compileOnSave": true,
-  "compilerOptions": {
-    "noImplicitAny": false,
-    "noEmitOnError": true,
-    "removeComments": false,
-    "sourceMap": true,
-    "target": "es5",
-    "outDir": "../../../wwwroot/js"
-
-  },
-  "include": [
-    "**/*",
-    "../shared/*"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
-}
-```
-
-Pay attention on the *include* and *exclude* section. also the *outDir* need update to the correct relation path.
-
-### 2.4 Re-structure the folder of for the page scripts
-
-Move the Src folder inside the page folder, so we could add config and module files outside the src folder for each pages folder.
-![update files structure](TSConfigForEachPageJSFolder2.png)
-
-### 2.5 Update the ts.config to make one page only use single bundle js file
-
-Add module with  value 'AMD' and special the name in the outFile.
-Foc doc of tsconfig setting, please check <https://www.typescriptlang.org/tsconfig>
-
-Example of `tsConfig.json` file  in the Page1 folder.
+Example of `tyConfig.json` for `/page1/`:
 
 ```json
 {
@@ -158,23 +125,64 @@ Example of `tsConfig.json` file  in the Page1 folder.
     "outDir": "/../../wwwroot/js",
     "module": "AMD",
     "outFile": "../../wwwroot/js/Page1.js"
-
   },
   "include": [
     "src/**/*",
-    "../shared/src/**/*"  ]
-  
+    "../shared/src/**/*"
+  ]  
 }
 ```
 
-## 3 Add NPM packages
+Pay attention on the *include* and *exclude* section. also the *outDir* need update to the correct relation path.
 
-### 3.1 Add NPM package files
+For documentation of tsconfig setting, please check <https://www.typescriptlang.org/tsconfig>
+
+### 2.3 Connect the View and Javascript files in View
+
+The  code site.ts will used for all site, it need in `Shared/_layout.cshtml` files.
+
+```csharp
+    <!-- and the bottom of Shared/_layout.cshtml -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>    
+    @RenderSection("Scripts", required: false)
+```
+
+In each pages, the js will be include in the view like below:
+
+```html
+@{
+    ViewData["Title"] = "page1";
+}
+
+<h1>page1</h1>
+
+@section Scripts {
+
+    <script data-main="/js/page1.js" src="~/lib/require.js" asp-append-version="true"></script>
+    <script>
+       require(["page1/src/page1"])
+    </script>
+}
+
+```
+
+*Note: the `page1.js` is exported as module name `page1/src/page1` since it use module in `shared/src/page`. the Script `require(["page1/src/page1"])` will load the javascript code and run it*
+
+## 3 Add a new page ReactDemo to Demo how to include Js 
+
+### 3.1 Add NPM package
 
 NPM is come with the [Node.Js](https://nodejs.org/en/download/). It should already be installed before you working this TypScript project.
 
 Right-click the project in Solution Explorer and choose Add > New Item. Choose the npm Configuration File, use the default name, and click Add.
 `package.json` file will be added.
+
+### 3.2 Add ReactJs
+
+todo.. 
+
 
 
 ### reference

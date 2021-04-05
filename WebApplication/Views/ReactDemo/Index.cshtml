@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewData["Title"] = "ReactDemo";
+}
+
+<h1>ReactDemo</h1>
+<div id="root"></div>
+@section Scripts {
+
+    <script data-main="/js/reactDemo/index.js" src="~/lib/require.js" asp-append-version="true"></script>
+    <script>
+        require(["index"])
+    </script>
+
+}
