@@ -1,17 +1,16 @@
-﻿export interface User {
+﻿export interface IUser {
     userId: string;
     emailAddress: string;
     firstName: string;
     lastName: string;
 }
 
-const testUser: User = {
-    userId: "testUser",
+const testUser: IUser = {
     emailAddress: "email",
     firstName: "fname",
-    lastName:"lname"
+    lastName: "lname",
+    userId: "testUser",
+};
 
-}
-
-export default User
-export { testUser }
+export default IUser;
+export { testUser };

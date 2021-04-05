@@ -6,6 +6,9 @@
 <h1>page1</h1>
 
 @section Scripts {
-    <script src="~/js/page1.js" asp-append-version="true"></script>
 
+    <script data-main="/js/page1.js" src="~/lib/require.js" asp-append-version="true"></script>
+    <script>
+       require(["page1/src/page1"])
+    </script>
 }
