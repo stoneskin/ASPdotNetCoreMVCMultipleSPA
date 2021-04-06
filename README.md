@@ -175,17 +175,149 @@ In each pages, the js will be include in the view like below:
 
 ## 3 Add a new page ReactDemo to Demo how to integrate ReactJs with TypeScript
 
+## 2.1 Add View, Controller and ClientApp\ReactDemo
+
+Create Controller and View for ReactDemo,
+and Add ReactDemo folder in the ClientApp,
+The Controller and view page will like below
+
+```csharp
+using Microsoft.AspNetCore.Mvc;
+
+namespace WebApplication.Controllers
+{
+    public class ReactDemoController : Controller
+    {
+        public IActionResult Index()
+        {
+            return View();
+        }
+    }
+}
+```
+
+```csharp
+@{
+    ViewData["Title"] = "ReactDemo";
+}
+
+<h1>ReactDemo</h1>
+<div id="root"></div>
+@section Scripts {
+
+    <script data-main="/js/reactDemo/index.js" src="~/lib/require.js" asp-append-version="true"></script>
+    <script>
+        require(["index"])
+    </script>
+
+}
+```
+
 ### 3.1 Add NPM package
 
 NPM is come with the [Node.Js](https://nodejs.org/en/download/). It should already be installed before you working this TypScript project.
 
-Right-click the project in Solution Explorer and choose Add > New Item. Choose the npm Configuration File, use the default name, and click Add.
+Right-click the `ClientApp\ReactDemo` in Solution Explorer and choose Add > New Item. Choose the npm Configuration File, use the default name, and click Add.
 `package.json` file will be added.
 
-### 3.2 Add ReactJs
+### 3.2 Add ReactJs with NPM
 
-please check the source code
-todo..
+there are many different way initial a ReactJs project, below will only install minimal need packages that need to demo ReactJs.  
+
+Run below in command line of the `ClientApp\ReactDemo`
+`npm install --save react react-dom`
+`npm install --save-dev @types/react @types/react-dom`
+
+The package.json will looks lke below:
+
+```json
+{
+  "name": "typescript-reactjs-demo",
+  "version": "1.0.0",
+  "devDependencies": {
+    "@types/react": "^17.0.3",
+    "@types/react-dom": "^17.0.3"
+  },
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  }
+}
+
+```
+
+***Note**, Also could edit the package.json file, then run `npm i` to retrieve the package to the `node_modules`*
+
+*Since we will not include the nod_modules in source control, we will add `npm i` as the Pre-build event command line*
+![prebuild run npm i](prebuild_npm_i.png)
+
+### 3.3 Add Test ReactJs Code with TypeScript
+
+- Create `\ReactDemo\Src\` and add TypeScript JSX File `index.tsx`
+  
+  ```typescript
+    //index.tsx
+    import * as React from "react";
+    import * as ReactDOM from "react-dom";
+
+    ReactDOM.render(
+        <div> hello! </div>
+        ,
+        document.getElementById("root")
+    );
+  ```
+
+- Add `typescript.json` in the `\ReactDemo` like below
+
+```json
+  {
+    "compilerOptions": {
+
+      "module": "AMD",
+      "moduleResolution": "Node",
+      "target": "ES5",
+      "jsx": "react",
+      "outFile": "../../wwwroot/js/reactDemo/index.js",
+      "lib": [
+        "dom",
+        "es2015"
+      ],
+
+      "sourceMap": true
+
+    },
+    "include": [
+      "**/*"
+    ]
+  }
+```
+
+***Note**:Below setting is also good to have to for TypeScript and reactJs base your Coding style.*
+
+``` json
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "noEmitOnError": true
+```
+
+### 3.4 fix the missing React/React-Dom js
+
+TypeScript build will exclude the node_module by default, so the imported library will not be packed in you output javascript file.
+
+To fix, most people were using `webpack` to pack the need lb into one bundle files,
+if not use webpack, you could just simply copy below files to the `wwwroot/js/ReactDemo`
+
+```
+ClientApp/ReactDemo/node_modules/react/umd/react.development.js -> wwwroot/js/ReactDemo/react.js
+ClientApp/ReactDemo/node_modules/react-dom/umd/react-dom.development.js -> wwwroot/js/ReactDemo/react-dom.js
+```
+
+### 3.5 add webpack
+
+todo
 
 ### reference
 

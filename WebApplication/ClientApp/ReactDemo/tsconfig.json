@@ -1,22 +1,24 @@
 {
   "compilerOptions": {
-    "allowJs": true,
-    "allowSyntheticDefaultImports": true,
+
     "module": "AMD",
     "moduleResolution": "Node",
-    "sourceMap": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
     "target": "ES5",
     "jsx": "react",
-    "outDir": "../../wwwroot/js/reactDemo",
     "outFile": "../../wwwroot/js/reactDemo/index.js",
     "lib": [
       "dom",
       "es2015"
-    ]
+    ],
+
+
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "noEmitOnError": true,
+    "sourceMap": true
 
   },
   "include": [

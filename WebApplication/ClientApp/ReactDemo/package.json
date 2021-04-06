@@ -1,14 +1,14 @@
 {
-  "name": "typescript-reactjs-webpack-demo",
+  "name": "typescript-reactjs-demo",
   "version": "1.0.0",
-  "description": "demo to build a html javascript page with typescript, reactjs, use webpack to build project",
+  "description": "demo to build a html javascript page with typescript, reactjs, use vs ts build to build project",
   "author": "wsun",
-  "dependencies": {
-    "react": "17.0.2",
-    "react-dom": "17.0.2"
-  },
   "devDependencies": {
-    "@types/react": "17.0.2",
-    "@types/react-dom": "17.0.2"
+    "@types/react": "^17.0.3",
+    "@types/react-dom": "^17.0.3"
+  },
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   }
 }
