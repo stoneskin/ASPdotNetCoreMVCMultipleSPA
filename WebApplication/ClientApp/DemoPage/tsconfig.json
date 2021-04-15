@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+
+    "module": "AMD",
+    "moduleResolution": "Node",
+    "target": "ES5",
+    "jsx": "react",
+    "lib": [
+      "dom",
+      "es2015"
+    ],
+
+
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "noEmitOnError": true,
+    "sourceMap": true,
+    "outDir": "output"
+  },
+  "include": [
+    "src"
+  ]
+}

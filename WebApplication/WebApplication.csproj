@@ -18,7 +18,11 @@
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="cd ./ClientApp/reactDemo/&#xD;&#xA;npm i" />
+    <Exec Command="cd $(ProjectDir)ClientApp\DemoPage\&#xD;&#xA;call &quot;$(ProjectDir)ClientApp\DemoPage\pre-build.bat&quot;&#xD;&#xA;&#xD;&#xA;cd $(ProjectDir)ClientApp\ReactDemo&#xD;&#xA;call &quot;$(ProjectDir)ClientApp\ReactDemo\pre-build.bat&quot;&#xD;&#xA;" />
+  </Target>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="cd $(ProjectDir)ClientApp\DemoPage\&#xD;&#xA;call &quot;$(ProjectDir)ClientApp\DemoPage\post-build.bat&quot;" />
   </Target>
 
 </Project>

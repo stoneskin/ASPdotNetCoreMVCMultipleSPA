@@ -367,3 +367,5 @@ MigrationBackup/
 FodyWeavers.xsd
 
 WebApplication/wwwroot/js
+**/[Oo]utput
+package-lock.json

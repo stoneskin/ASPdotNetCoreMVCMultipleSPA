@@ -317,7 +317,136 @@ ClientApp/ReactDemo/node_modules/react-dom/umd/react-dom.development.js -> wwwro
 
 ### 3.5 add webpack
 
-todo
+We will keep use typescript build to build ts code to js, then use webpack to pack all the js files to js bundle file
+
+#### 3.5.1 Update TypeScript config
+
+Change the outDir to **`"outDir": "output"`**
+So all js file build by TypescriptBuild will in the `output` folder
+
+```json
+{
+  "compilerOptions": {
+
+    "module": "AMD",
+    "moduleResolution": "Node",
+    "target": "ES5",
+    "jsx": "react",
+    "lib": [
+      "dom",
+      "es2015"
+    ],
+
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "noEmitOnError": true,
+    "sourceMap": true,
+    "outDir": "output"
+  },
+  "include": [
+    "src"
+  ]
+}
+```
+
+#### 3.5.2 install webpack
+
+- You could run below script to install webpac and webpack-cli:
+
+  `npm install webpack webpack-cli --save-dev`
+
+- Your `package.json` will looks like
+
+  ```json
+  {
+    "name": "typescript-reactjs-demo",
+    "version": "1.0.0",
+    "description": "demo to build a html javascript page with typescript, reactjs, use vs ts build to build project",
+    "author": "wsun",
+    "scripts": {
+      "build": "npm i && webpack",
+      "webpack": "webpack"
+    },
+    "devDependencies": {
+      "@types/react": "17.0.3",
+      "@types/react-dom": "17.0.3",
+      "webpack": "^5.32.0",
+      "webpack-cli": "^4.6.0"
+    },
+    "dependencies": {
+      "react": "17.0.2",
+      "react-dom": "17.0.2"
+    }
+  }
+
+  ```
+
+- Add webpack config file
+
+  ```json
+  //webpack.config.js
+  const path = require('path');
+
+  module.exports = {
+      mode: 'production',
+      entry: './output/index.js',
+      output: {
+          filename: 'js/DemoPage/index.js',
+          path: path.resolve(__dirname, '../../wwwroot'),
+      },
+  };
+  ```
+
+#### 3.5.3 add npm run webpack to vs project build
+
+since we have npm run script in package.json
+
+```json
+    "scripts": {
+      "build": "npm i && webpack",
+      "webpack": "webpack"
+    },
+```
+
+we could run `npm run webpack` or `npm run build` to build the client project, just need add this command in the Visual studio post event
+
+![webpack build in vs build](WebPackBuildEvent.png)
+
+#### 3.5.4 Add multiple command line build event in vs studio
+
+VS studio build has limit will skip next command like `npm i` run in different folders, we need move the command to batch file `pre-build.bat` and `post-build.bat` for each page folder under ClientApp. 
+
+```bash
+# pre-build.bat
+echo %CD%
+npm i
+```
+
+```bash
+# post-build.bat
+echo %CD%
+npm run build
+```
+
+and add below scrip on the project build event
+
+```bash
+cd $(ProjectDir)ClientApp\DemoPage\
+call "$(ProjectDir)ClientApp\DemoPage\pre-build.bat"
+cd $(ProjectDir)ClientApp\ReactDemo
+call "$(ProjectDir)ClientApp\ReactDemo\pre-build.bat"
+```
+
+```bash
+cd $(ProjectDir)ClientApp\DemoPage\
+call "$(ProjectDir)ClientApp\DemoPage\post-build.bat"
+```
+
+See below screenshot as example:
+![build event](./MulitplePageBuildEvent.png)
 
 ### reference
 
