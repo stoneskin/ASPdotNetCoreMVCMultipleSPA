@@ -448,6 +448,118 @@ call "$(ProjectDir)ClientApp\DemoPage\post-build.bat"
 See below screenshot as example:
 ![build event](./MulitplePageBuildEvent.png)
 
+### 3.6 Add another project for Client App Page
+
+In many cases, we like to put multiple Client App Pages in their individual projects.
+
+#### 3.6.1 Create Empty DotNetCore Web project
+
+- Create empty project, only keep the program.cs
+
+```csharp
+namespace WebApplication.ClientApp.DemoPage2
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+           
+        }
+      
+    }
+}
+```
+
+- Install Microsoft.Typescript.MSBuild with package
+- Add preBuild and postBuild event, the csproj file will have below item
+
+```xml
+ <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="npm i" />
+  </Target>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="npm run build" />
+  </Target>
+```
+
+#### 3.6.2 Add ClientApp Code
+
+- Create the script src folder and  add the demo typescript code in
+- Add package.json
+
+```json
+{
+  "name": "typescript-reactjs-demo-2",
+  "scripts": {
+    "build": "npm i && webpack",
+    "webpack": "webpack"
+  },
+  "devDependencies": {
+    "@types/react": "17.0.3",
+    "@types/react-dom": "17.0.3",
+    "webpack": "^5.32.0",
+    "webpack-cli": "^4.6.0",
+    "source-map-loader": "^2.0.1"
+  },
+  "dependencies": {
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
+  }
+}
+```
+
+- Add Webpack config file
+
+  The output file will be export to main web project wwwroot folder `../WebApplication/wwwroot`
+
+  Add `source-map` config for development and debug
+
+  ```javascript
+  //webpack.config.js
+  const path = require('path');
+
+  module.exports = {
+      mode: 'production',
+      entry: './output/index.js',
+      output: {
+          filename: 'js/DemoPage2/index.js',
+          path: path.resolve(__dirname, '../WebApplication/wwwroot'),
+      },
+      devtool: "source-map",
+      module: {
+          rules: [
+
+              // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
+              { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
+          ]
+      },
+    };
+  ```
+
+#### 3.6.3 Add Controller View and layout to the main page 
+
+- Add a controller, and view
+
+Use the javascript in `/js/DemoPage2/index.js` which export by webpack from the Demo2 project
+
+```csharp
+@{
+    ViewData["Title"] = "ReactDemo 2";
+}
+
+<h1>ReactDemo page 2</h1>
+<div id="root"></div>
+@section Scripts {
+
+    <script data-main="/js/DemoPage2/index.js" src="~/lib/require.js" asp-append-version="true"></script>
+    <script>
+        require(["index"])
+    </script>
+
+}
+```
+
 ### reference
 
 - AspNet with TypeScript: <https://docs.microsoft.com/en-us/visualstudio/javascript/tutorial-aspnet-with-typescript?view=vs-2019>
